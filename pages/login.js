@@ -4,7 +4,7 @@ import {
   HeaderMessage,
   FooterMessage,
 } from "../components/common/WelcomeMessage.js";
-
+import {loginUser} from "../utils/authUser.js"
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
@@ -21,12 +21,16 @@ const Login = () => {
     );
     if (isUser) {
       setSubmitDisabled(false);
+      console.log("hi")
     } else {
       setSubmitDisabled(true);
     }
   }, [user]);
-  const submitHandler = (e) => {
+  const submitHandler =async (e) => {
+    // console.log("hi")
     e.preventDefault();
+    await loginUser({user,setErrorMessage,setFormLoading})
+
   };
   const handleChange = (e) => {
     //   console.log(e.target)
@@ -86,7 +90,8 @@ const Login = () => {
             content='login'
             type='submit'
             color='orange'
-            disabled={submitDisabled }
+            disabled={submitDisabled}
+            // onSubmit={submitHandler}
           ></Button>
         </Segment>
       </Form>

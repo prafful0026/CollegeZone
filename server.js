@@ -1,3 +1,4 @@
+const express = require("express");
 const app = require("express")();
 
 const server = require("http").Server(app);
@@ -8,14 +9,14 @@ const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
 require("dotenv").config({ path: "./config.env" });
-
+app.use(express.json());
 const connectDb = require("./utilsServer/connectDb.js");
 const PORT = process.env.PORT || 3000;
 connectDb();
 
 nextApp.prepare().then(() => {
   app.use("/api/signup", require("./api/signup.js"));
-  // app.use("/api/auth", require("./api/auth.js"));
+  app.use("/api/auth", require("./api/auth.js"));
 
   app.all("*", (req, res) => handle(req, res));
 

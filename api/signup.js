@@ -14,6 +14,7 @@ const userPng =
 
 router.get("/:username", async (req, res) => {
   const { username } = req.params;
+  console.log(req.params)
   try {
     if (username.length < 1) return res.status(401).send("invalid username");
     if (!regexUserName.test(username))
@@ -23,7 +24,7 @@ router.get("/:username", async (req, res) => {
         username: username.toLowerCase(),
       });
       if (user) return res.status(401).send("username already taken");
-      else return res.status(200).send("available");
+      else return res.status(200).send("Available");
     }
   } catch (error) {
     console.log(error);
@@ -31,8 +32,9 @@ router.get("/:username", async (req, res) => {
   }
 });
 
-
 router.post("/", async (req, res) => {
+    console.log(req.body.profilePicUrl)
+    console.log(req.body.user)
   const {
     name,
     email,
@@ -42,7 +44,7 @@ router.post("/", async (req, res) => {
     facebook,
     youtube,
     twitter,
-    intagram,
+    instagram,
   } = req.body.user;
   if (!isEmail(email)) return res.status(401).send("invalid email");
   if (password.length < 6)
@@ -56,16 +58,28 @@ router.post("/", async (req, res) => {
       email: email.toLowerCase(),
       username: username.toLowerCase(),
       password,
-      profilePicUrl:req.body.profilePicUrl||userPng
-
+      profilePicUrl: req.body.profilePicUrl || userPng,
     });
-    user.password=await bcrypt.hash(password,10)
-    await user.save()
-    
-    let profileFields={}
-    profileFields
- 
+    user.password = await bcrypt.hash(password, 10);
+    await user.save();
 
+    let profileFields = {};
+    profileFields.user = user._id;
+    profileFields.bio = bio;
+    profileFields.social = {};
+    if (facebook) profileFields.social.facebook = facebook;
+    if (youtube) profileFields.social.youtube = youtube;
+    if (instagram) profileFields.social.instagram = instagram;
+    if (twitter) profileFields.social.twitter = twitter;
+    await new ProfileModel(profileFields).save();
+    
+    await new FollowerModel({user:user._id,followers:[],following:[] }).save()
+
+    const payload={userId:user._id}
+    jwt.sign(payload,process.env.jwtSecret,{expiresIn:"2d"},(err,token)=>{
+        if(err) throw err
+        res.status(200).json(token)
+    })
 
 
   } catch (error) {

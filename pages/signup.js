@@ -1,23 +1,20 @@
 // import e from "express";
 import React, { useEffect, useState, useRef } from "react";
-import {
-  Button,
-  Message,
-  Form,
-  Segment,
-  Divider,
-} from "semantic-ui-react";
+import { Button, Message, Form, Segment, Divider } from "semantic-ui-react";
 import InputComponent from "../components/common/InputComponent.js";
 import ImageDropContainer from "../components/common/ImageDropContainer.js";
-
+import {registerUser} from "../utils/authUser.js"
+import uploadPic from "../utils/uploadPicToCloudinary.js"
 import {
   HeaderMessage,
   FooterMessage,
 } from "../components/common/WelcomeMessage.js";
+
+import axios from "axios";
+import baseUrl from "../utils/baseUrl.js";
+let cancel;
 const regexUserName = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/;
 const Signup = () => {
-
-    
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -26,7 +23,7 @@ const Signup = () => {
     facebook: "",
     youtube: "",
     twitter: "",
-    intagram: "",
+    instagram: "",
   });
   const { name, email, password, bio } = user;
 
@@ -56,15 +53,59 @@ const Signup = () => {
     }
   }, [user]);
 
-  const submitHandler = (e) => {
+  const submitHandler =async (e) => {
     e.preventDefault();
+    // console.log(user)
+    setFormLoading(true)
+    let profilePicUrl;
+    console.log(media)
+    if(media!==null)
+    {
+      profilePicUrl=await uploadPic(media)
+      // console.log(profilePicUrl)
+    }
+    if(media!==null &&!profilePicUrl){
+    setFormLoading(false)
+    return setErrorMessage("error uploading image")
+    }
+    await registerUser({user,profilePicUrl,setErrorMessage,setFormLoading})
   };
+  const checkUsername = async () => {
+    // console.log(username)
+
+    setUsernameLoading(true);
+    try {
+      cancel && cancel();
+      const CancelToken = await axios.CancelToken;
+      const res = await axios.get(`${baseUrl}/api/signup/${username}`, {
+        cancelToken: new CancelToken((canceler) => {
+          cancel = canceler;
+        }),
+      });
+      if(errorMessage!==null)
+      setErrorMessage(null)
+      if (res.data === "Available") {
+        setUsernameAvailable(true);
+        setUser((prev) => ({ ...prev, username }));
+      }
+    } catch (error) {
+      console.log(error)
+      setErrorMessage("username not available");
+      setUsernameAvailable(false)
+    }
+    setUsernameLoading(false);
+  };
+  useEffect(() => {
+    // const res=await axios.get(`${baseUrl}/api/signup/${username}`)
+    // checkUsername
+    username === "" ? setUsernameAvailable(false) : checkUsername();
+  }, [username]);
   const handleChange = (e) => {
     //   console.log(e.target)
-    const { name, value ,files } = e.target;
-    if(name==="media")
-    {setMedia(files[0])
-      setMediaPreview(URL.createObjectURL(files[0]))
+    const { name, value, files } = e.target;
+    if (name === "media") {
+      setMedia(files[0]);
+      setMediaPreview(URL.createObjectURL(files[0]));
     }
     setUser((prev) => ({ ...prev, [name]: value }));
   };
