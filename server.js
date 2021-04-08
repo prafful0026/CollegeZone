@@ -1,23 +1,26 @@
-const app=require('express')()
+const app = require("express")();
 
-const server=require('http').Server(app)
+const server = require("http").Server(app);
 
-const next=require('next')
-const dev=process.env.NODE_ENV!=='production'
-const nextApp=next({dev})
-const handle=nextApp.getRequestHandler()
+const next = require("next");
+const dev = process.env.NODE_ENV !== "production";
+const nextApp = next({ dev });
+const handle = nextApp.getRequestHandler();
 
-require('dotenv').config({path:"./config.env"})
+require("dotenv").config({ path: "./config.env" });
 
-const connectDb=require('./utilsServer/connectDb.js')
-const PORT=process.env.PORT||3000
-connectDb()
+const connectDb = require("./utilsServer/connectDb.js");
+const PORT = process.env.PORT || 3000;
+connectDb();
 
-nextApp.prepare().then(()=>{
-    app.all("*",(req,res)=>handle(req,res))
+nextApp.prepare().then(() => {
+  app.use("/api/signup", require("./api/signup.js"));
+  // app.use("/api/auth", require("./api/auth.js"));
 
-    server.listen(PORT,err=>{
-        if(err) throw err
-        else console.log(`on port ${PORT}`)
-    })
-})
+  app.all("*", (req, res) => handle(req, res));
+
+  server.listen(PORT, (err) => {
+    if (err) throw err;
+    else console.log(`on port ${PORT}`);
+  });
+});
