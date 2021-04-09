@@ -21,7 +21,7 @@ const Login = () => {
     );
     if (isUser) {
       setSubmitDisabled(false);
-      console.log("hi")
+      // console.log("hi")
     } else {
       setSubmitDisabled(true);
     }

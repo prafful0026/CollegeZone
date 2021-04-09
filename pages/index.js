@@ -1,11 +1,13 @@
 import React from 'react'
-
-const Home = () => {
+import axios from "axios"
+const Index = ({user,userFollowStats}) => {
+    console.log({user,userFollowStats})
     return (
         <div>
-            home
+            Homepage
         </div>
     )
 }
 
-export default Home
+
+export default Index

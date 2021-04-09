@@ -11,15 +11,7 @@ const HeadTags = () => (
 
       <link rel='stylesheet' type='text/css' href='/styles.css' />
       <link rel='stylesheet' type='text/css' href='/nprogress.css' />
-      <link
-        async
-        rel='stylesheet'
-        href='//cdn.jsdelivr.net/npm/semantic-ui@${props.versions.sui}/dist/semantic.min.css'
-      />
-      <script
-        async
-        src='//cdn.jsdelivr.net/npm/semantic-ui@${props.versions.sui}/dist/semantic.min.js'
-      ></script>
+   
       <title>FrandZone-A place to chill</title>
     </Head>
   </>

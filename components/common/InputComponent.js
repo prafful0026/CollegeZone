@@ -42,21 +42,21 @@ const InputComponent = ({user:{bio,facebook,twitter,youtube,instagram},
             onChange={handleChange}
           ></Form.Input>
            <Form.Input
-            icon='twitter '  
+            icon='twitter'  
             iconPosition='left'
             name='twitter'
             value={twitter}
             onChange={handleChange}
           ></Form.Input>
            <Form.Input
-            icon='user '
+            icon='user'
             iconPosition='left'
             name='instagram'
             value={instagram}
             onChange={handleChange}
           ></Form.Input>
            <Form.Input
-            icon='youtube '
+            icon='youtube'
             iconPosition='left'
             name='youtube'
             value={youtube}
