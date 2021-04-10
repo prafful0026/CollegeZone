@@ -5,6 +5,7 @@ import {
   FooterMessage,
 } from "../components/common/WelcomeMessage.js";
 import {loginUser} from "../utils/authUser.js"
+import cookie from "js-cookie"
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
@@ -37,6 +38,17 @@ const Login = () => {
     const { name, value } = e.target;
     setUser((prev) => ({ ...prev, [name]: value }));
   };
+  
+  useEffect(()=>{
+    
+    document.title="Welcome back"
+    const userEmail=cookie.get("userEmail")
+    if(userEmail)
+    setUser(prev=>({...prev,email:userEmail}))
+
+  },[])
+       
+    
   return (
     <>
       <HeaderMessage />
