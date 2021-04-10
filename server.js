@@ -17,6 +17,7 @@ connectDb();
 nextApp.prepare().then(() => {
   app.use("/api/signup", require("./api/signup.js"));
   app.use("/api/auth", require("./api/auth.js"));
+  app.use("/api/search", require("./api/search.js"));
 
   app.all("*", (req, res) => handle(req, res));
 
