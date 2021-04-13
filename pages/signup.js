@@ -100,6 +100,8 @@ const Signup = () => {
     // checkUsername
     username === "" ? setUsernameAvailable(false) : checkUsername();
   }, [username]);
+
+  
   const handleChange = (e) => {
     //   console.log(e.target)
     const { name, value, files } = e.target;
