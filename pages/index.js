@@ -6,19 +6,25 @@ import CardPost from "../components/Post/CardPost.js";
 import { Segment } from "semantic-ui-react";
 import { parseCookies } from "nookies";
 import { NoPosts } from "../components/Layout/NoData.js";
+import {PostDeleteToastr} from "../components/Layout/Toastr.js"
 const Index = ({ user, postsData, errorLoading }) => {
   const [posts, setPosts] = useState(postsData||[]);
-  const [showToaster, setShowToaster] = useState(false);
+  const [showToastr, setShowToastr] = useState(false);
 
   useEffect(() => {
     document.title = `Welcome ,${user.name.split(" ")[0]}`;
   }, []);
 
-  if (posts.length === 0 || errorLoading) return <NoPosts />;
+  useEffect(()=>{
+    showToastr && setTimeout(()=>setShowToastr(false),3000)
+  },[showToastr])
+
+
 
   //   console.log({ user, userFollowStats });
   return (
     <>
+    {showToastr && <PostDeleteToastr/>}
     <Segment>
       <CreatePost user={user} setPosts={setPosts} />
       {posts.map((post) => (
@@ -27,10 +33,11 @@ const Index = ({ user, postsData, errorLoading }) => {
           post={post}
           user={user}
           setPosts={setPosts}
-          setShowToaster={setShowToaster}
+          setShowToastr={setShowToastr}
         />
       ))}
       </Segment>
+    {(posts.length === 0 || errorLoading)&&<NoPosts />}
     </>
   );
 };
