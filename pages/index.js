@@ -7,7 +7,7 @@ import { Segment } from "semantic-ui-react";
 import { parseCookies } from "nookies";
 import { NoPosts } from "../components/Layout/NoData.js";
 const Index = ({ user, postsData, errorLoading }) => {
-  const [posts, setPosts] = useState(postsData);
+  const [posts, setPosts] = useState(postsData||[]);
   const [showToaster, setShowToaster] = useState(false);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Index = ({ user, postsData, errorLoading }) => {
           user={user}
           setPosts={setPosts}
           setShowToaster={setShowToaster}
-        ></CardPost>
+        />
       ))}
       </Segment>
     </>
