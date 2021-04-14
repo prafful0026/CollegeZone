@@ -14,7 +14,7 @@ const userPng =
 
 router.get("/:username", async (req, res) => {
   const { username } = req.params;
-  console.log(req.params)
+  // console.log(req.params)
   try {
     if (username.length < 1) return res.status(401).send("invalid username");
     if (!regexUserName.test(username))

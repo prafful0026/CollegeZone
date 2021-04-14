@@ -3,7 +3,7 @@ import { List, Icon } from "semantic-ui-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {logoutUser} from "../../utils/authUser.js"
-
+let temp="College"+"Zone".fontcolor("teal")
 const SideMenu = ({
   user: { unreadNotification, email, unreadMessage, username },
 }) => {
@@ -18,16 +18,29 @@ const SideMenu = ({
         verticalAlign='middle'
         selection
       >
+          <List.Item >
+            <Icon name='book' size='large' color={"teal"} />
+
+            <List.Content style={{fontSize:"35px"}}>
+            <h1 ><span style={{color:"gray"}}>College</span><span style={{color:"teal"}}>Zone</span></h1>
+
+            
+              {/* <List.Header content='CollegeZone' /> */}
+            </List.Content>
+          </List.Item>
+          <br/>
+          <br/>
+
         <Link href='/'>
           <List.Item active={isActive("/")}>
-            <Icon name='home' size='large' color={isActive("/") && "teal"} />
+            <Icon name='home' size='' color={isActive("/") && "teal"} />
             <List.Content>
               <List.Header content='Home' />
             </List.Content>
           </List.Item>
         </Link>
         <br/>
-        <Link href='/messages'>
+        {/* <Link href='/messages'>
           <List.Item active={isActive("/messages")}>
             <Icon
               name={unreadMessage ? "hand point right" : "mail outline"}
@@ -40,13 +53,13 @@ const SideMenu = ({
               <List.Header content='Messages' />
             </List.Content>
           </List.Item>
-        </Link>
-        <br/>
+        </Link> */}
+        {/* <br/> */}
 
         <Link href='/notifications'>
           <List.Item active={isActive("/notifications")}>
             <Icon
-              name={unreadNotification ? "hand point right" : "bell outline"}
+              name={"bell outline"}
               size='large'
               color={
                 (isActive("/notifications") && "teal") ||
@@ -54,7 +67,7 @@ const SideMenu = ({
               }
             />
             <List.Content>
-              <List.Header content='Notifications' />
+              <List.Header content='Notice Board' />
             </List.Content>
           </List.Item>
         </Link>

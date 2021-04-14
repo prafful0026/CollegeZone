@@ -7,7 +7,10 @@ function Navbar() {
   const router = useRouter();
   const isActive=route=>router.pathname===route
   return (
+    <>
     <Menu fluid borderless>
+      
+    <h1 style={{marginLeft:"50px",fontSize:"50px",marginTop:"10px"}}><span style={{color:"gray"}}>College</span><span style={{color:"teal"}}>Zone</span></h1>
       <Container text>
        <Link href="/login">
          <Menu.Item header active={isActive("/login")}>
@@ -24,6 +27,7 @@ function Navbar() {
        </Link>
       </Container>
     </Menu>
+    </>
   );
 }
 

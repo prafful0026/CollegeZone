@@ -58,7 +58,7 @@ const Signup = () => {
     // console.log(user)
     setFormLoading(true)
     let profilePicUrl;
-    console.log(media)
+    // console.log(media)
     if(media!==null)
     {
       profilePicUrl=await uploadPic(media)
