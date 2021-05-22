@@ -5,28 +5,30 @@ import Link from "next/link";
 
 function Navbar() {
   const router = useRouter();
-  const isActive=route=>router.pathname===route
+  const isActive = (route) => router.pathname === route;
   return (
     <>
-    <Menu fluid borderless>
-      
-    <h1 style={{marginLeft:"50px",fontSize:"50px",marginTop:"10px"}}><span style={{color:"gray"}}>College</span><span style={{color:"teal"}}>Zone</span></h1>
-      <Container text>
-       <Link href="/login">
-         <Menu.Item header active={isActive("/login")}>
-            <Icon size="large" name="sign in" />
-            Login
-         </Menu.Item>
-       </Link>
+      <Menu fluid borderless>
+        <h1 style={{ marginLeft: "50px", fontSize: "50px", marginTop: "10px" }}>
+          <span style={{ color: "gray" }}>Frand</span>
+          <span style={{ color: "teal" }}>Zone</span>
+        </h1>
+        <Container text>
+          <Link href='/login'>
+            <Menu.Item header active={isActive("/login")}>
+              <Icon size='large' name='sign in' />
+              Login
+            </Menu.Item>
+          </Link>
 
-       <Link href="/signup">
-         <Menu.Item header active={isActive("/signup")}>
-            <Icon size="large" name="signup" />
-            Sign up
-         </Menu.Item>
-       </Link>
-      </Container>
-    </Menu>
+          <Link href='/signup'>
+            <Menu.Item header active={isActive("/signup")}>
+              <Icon size='large' name='signup' />
+              Sign up
+            </Menu.Item>
+          </Link>
+        </Container>
+      </Menu>
     </>
   );
 }

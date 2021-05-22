@@ -127,7 +127,6 @@ router.put("/unlike/:postId", authMiddleware, async (req, res) => {
 router.get("/like/:postId", authMiddleware, async (req, res) => {
   try {
     const { postId } = req.params;
-    const { userId } = req;
     const post = await PostModel.findById(postId).populate("likes.user");
     if (!post) return res.status(404).send("post not found");
     

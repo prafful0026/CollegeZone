@@ -22,7 +22,7 @@ const SideMenu = ({
             <Icon name='book' size='large' color={"teal"} />
 
             <List.Content style={{fontSize:"35px"}}>
-            <h1 ><span style={{color:"gray"}}>College</span><span style={{color:"teal"}}>Zone</span></h1>
+            <h1 ><span style={{color:"gray"}}>Frand</span><span style={{color:"teal"}}>Zone</span></h1>
 
             
               {/* <List.Header content='CollegeZone' /> */}
