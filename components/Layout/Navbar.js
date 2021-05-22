@@ -9,12 +9,12 @@ function Navbar() {
   return (
     <>
       <Menu fluid borderless>
-        <h1 style={{ marginLeft: "20px", fontSize: "40px", marginTop: "10px" }}>
+        {/* <h1 style={{ marginLeft: "20px", fontSize: "30px", marginTop: "10px" }}>
           <span style={{ color: "gray" }}>Frand</span>
           <span style={{ color: "teal" }}>Zone</span>
-        </h1>
+        </h1> */}
         <Container text>
-          <Link href='/login'>
+          <Link href='/login'>  
             <Menu.Item header active={isActive("/login")}>
               <Icon size='large' name='sign in' />
               Login

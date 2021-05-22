@@ -10,30 +10,30 @@ function MobileHeader({ user: { unreadNotification, email, unreadMessage, userna
 
   return (
     <>
-      <Menu fluid borderless>
+      <Menu fluid borderless >
         <Container text>
+          <div style={{width:"100%",display:"flex",justifyContent:"space-around"}}>
           <Link href="/">
             <Menu.Item header active={isActive("/")}>
-              <Icon name="rss" size="large" />
+              <Icon name="rss" size="small" />
             </Menu.Item>
           </Link>
    <Link href={`/${username}`}>
                 <Dropdown.Item active={isActive(`/${username}`)}>
-                  <Icon name="user" size="large" />
-                  Account
+                  <Icon name="user" size="small" />
                 </Dropdown.Item>
               </Link>
 
               <Link href="/search">
                 <Dropdown.Item active={isActive("/search")}>
-                  <Icon name="search" size="large" />
-                  Search
+                  <Icon name="search" size="small" />
                 </Dropdown.Item>
               </Link>
               <Dropdown.Item onClick={() => logoutUser(email)}>
-                <Icon name="sign out alternate" size="large" />
-                Logout
+                <Icon name="sign out alternate" size="small" /> 
               </Dropdown.Item>
+            </div>
+         
         </Container>
       </Menu>
     </>
