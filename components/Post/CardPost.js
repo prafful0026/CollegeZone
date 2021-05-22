@@ -16,8 +16,8 @@ import calculateTime from "../../utils/calculateTime";
 import Link from "next/link";
 import { deletePost, likePost } from "../../utils/postActions";
 import LikesList from "./LikesList";
-// import ImageModal from "./ImageModal";
-// import NoImageModal from "./NoImageModal";
+import ImageModal from "./ImageModal";
+import NoImageModal from "./NoImageModal";
 
 function CardPost({ post, user, setPosts, setShowToastr }) {
   const [likes, setLikes] = useState(post.likes);
@@ -32,19 +32,19 @@ function CardPost({ post, user, setPosts, setShowToastr }) {
 
   const [showModal, setShowModal] = useState(false);
 
-  // const addPropsToModal = () => ({
-  //   post,
-  //   user,
-  //   setLikes,
-  //   likes,
-  //   isLiked,
-  //   comments,
-  //   setComments
-  // });
+  const addPropsToModal = () => ({
+    post,
+    user,
+    setLikes,
+    likes,
+    isLiked,
+    comments,
+    setComments
+  });
 
   return (
     <>
-      {/* {showModal && (
+      {showModal && (
         <Modal
           open={showModal}
           closeIcon
@@ -58,7 +58,7 @@ function CardPost({ post, user, setPosts, setShowToastr }) {
             )}
           </Modal.Content>
         </Modal>
-      )} */}
+      )} 
 
       <Segment basic>
         <Card color='teal' fluid>
