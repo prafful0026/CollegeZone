@@ -14,6 +14,14 @@ import nprogress from "nprogress";
 import Router from "next/router";
 import SideMenu from "./SideMenu.js";
 import Search from "./Search.js";
+import MobileHeader from "./MobileHeader";
+import { createMedia } from "@artsy/fresnel";
+
+const AppMedia = createMedia({
+  breakpoints: { zero: 0, mobile: 549, tablet: 850, computer: 1080 },
+});
+const mediaStyles = AppMedia.createMediaStyle();
+const { Media, MediaContextProvider } = AppMedia;
 
 function Layout({ children, user }) {
   const contextRef = createRef();
@@ -27,29 +35,84 @@ function Layout({ children, user }) {
       <HeadTags />
       {user ? (
         <>
-          <div style={{ marginLeft: "1rem", marginRight: "1rem" }}>
-            <Ref innerRef={contextRef}>
-              <Grid>
-                <Grid.Column floated='left' width={2}>
-                  <Sticky context={contextRef}>
-                    <SideMenu user={user}></SideMenu>
-                  </Sticky>
-                </Grid.Column>
+          <style>{mediaStyles}</style>
+          <MediaContextProvider>
+            <div style={{ marginLeft: "1rem", marginRight: "1rem" }}>
+              <Media greaterThanOrEqual='computer'>
+                <Ref innerRef={contextRef}>
+                  <Grid>
+                    <Grid.Column floated='left' width={2}>
+                      <Sticky context={contextRef}>
+                        <SideMenu user={user} pc={true}></SideMenu>
+                      </Sticky>
+                    </Grid.Column>
 
-                <Grid.Column width={10}>
-                  <Visibility context={contextRef}>{children}</Visibility>
-                </Grid.Column>
+                    <Grid.Column width={10}>
+                      <Visibility context={contextRef}>{children}</Visibility>
+                    </Grid.Column>
 
-                <Grid.Column floated='left' width={4}>
-                  <Sticky context={contextRef}>
-                    <Segment basic>
-                      <Search />
-                    </Segment>
-                  </Sticky>
-                </Grid.Column>
-              </Grid>
-            </Ref>
-          </div>
+                    <Grid.Column floated='left' width={3}>
+                      <Sticky context={contextRef}>
+                        <Segment basic>
+                          <Search />
+                        </Segment>
+                      </Sticky>
+                    </Grid.Column>
+                  </Grid>
+                </Ref>
+              </Media>
+              <Media between={["tablet", "computer"]}>
+                <Ref innerRef={contextRef}>
+                  <Grid>
+                    {
+                      <>
+                        <Grid.Column floated='left' width={1}>
+                          <Sticky context={contextRef}>
+                            <SideMenu user={user} pc={false} />
+                          </Sticky>
+                        </Grid.Column>
+
+                        <Grid.Column width={15}>
+                          <Visibility context={contextRef}>
+                            {children}
+                          </Visibility>
+                        </Grid.Column>
+                      </>
+                    }
+                  </Grid>
+                </Ref>
+              </Media>
+
+              <Media between={["mobile", "tablet"]}>
+                <Ref innerRef={contextRef}>
+                  <Grid>
+                    {
+                      <>
+                        <Grid.Column floated='left' width={1}>
+                          <Sticky context={contextRef}>
+                            <SideMenu user={user} pc={false} />
+                          </Sticky>
+                        </Grid.Column>
+
+                        <Grid.Column width={15}>
+                          <Visibility context={contextRef}>
+                            {children}
+                          </Visibility>
+                        </Grid.Column>
+                      </>
+                    }
+                  </Grid>
+                </Ref>
+              </Media>
+
+              <Media between={["zero", "mobile"]}>
+                <MobileHeader user={user} />
+                <Grid>
+                  <Grid.Column>{children}</Grid.Column>
+                </Grid>
+              </Media>
+            </div>
+          </MediaContextProvider>
         </>
       ) : (
         <>

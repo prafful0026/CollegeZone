@@ -6,7 +6,7 @@ import Router from "next/router";
 import baseUrl from "../../utils/baseUrl.js";
 let cancel;
 
-const SearchComponent = () => {
+const SearchComponent = ({size="small"}) => {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
@@ -16,7 +16,7 @@ const SearchComponent = () => {
     setText(value);
     setLoading(true);
     try {
-      cancel && cancel()
+      cancel && cancel();
       const CancelToken = await axios.CancelToken;
       const token = cookie.get("token");
       const res = await axios.get(`${baseUrl}/api/search/${value}`, {
@@ -40,22 +40,24 @@ const SearchComponent = () => {
     if (text.length === 0 && loading) setLoading(false);
   }, []);
   return (
-    <Search
-      onBlur={() => {
-        results.length > 0 && setResults([]);
-        loading && setLoading(false);
-        setText("");
-      }}
-      loading={loading}
-      value={text}
-      resultRenderer={ResultRenderer}
-      results={results}
-      onSearchChange={handleChange}
-      minCharacters={1}
-      onResultSelect={(e, data) => {
-        Router.push(`/${data.result.username}`);
-      }}
-    />
+      <Search
+        onBlur={() => {
+          results.length > 0 && setResults([]);
+          loading && setLoading(false);
+          setText("");
+        }}
+        loading={loading}
+        value={text}
+        resultRenderer={ResultRenderer}
+        results={results}
+        onSearchChange={handleChange}
+        minCharacters={1}
+        onResultSelect={(e, data) => {
+          Router.push(`/${data.result.username}`);
+        }}
+        fluid={true}
+        size={size}
+      />
   );
 };
 
