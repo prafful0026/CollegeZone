@@ -9,7 +9,7 @@ function Navbar() {
   return (
     <>
       <Menu fluid borderless>
-        <h1 style={{ marginLeft: "50px", fontSize: "50px", marginTop: "10px" }}>
+        <h1 style={{ marginLeft: "20px", fontSize: "40px", marginTop: "10px" }}>
           <span style={{ color: "gray" }}>Frand</span>
           <span style={{ color: "teal" }}>Zone</span>
         </h1>
