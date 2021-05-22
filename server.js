@@ -24,6 +24,10 @@ nextApp.prepare().then(() => {
 
   server.listen(PORT, (err) => {
     if (err) throw err;
-    else console.log(`on port ${PORT}`);
+    else {
+      console.log(`on port ${PORT}`);
+
+      console.log(process.env.NODE_ENV);
+    }
   });
 });
