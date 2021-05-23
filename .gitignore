@@ -1,5 +1,5 @@
 node_modules
 config.env
+next.config.js
 .next
 .gitignore  
-next.config.js
